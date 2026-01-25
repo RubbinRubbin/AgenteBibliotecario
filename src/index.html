@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agente Bibliotecario - Algoritmi di Ordinamento e Ricerca</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <h1>Agente Bibliotecario</h1>
+            <p class="subtitle">Esplora gli algoritmi di ordinamento e ricerca in modo interattivo</p>
+        </header>
+
+        <!-- Sezione Setup -->
+        <section id="section-setup" class="section">
+            <div class="section-header">
+                <h2>Setup Dataset</h2>
+                <p>Genera un dataset casuale o carica il tuo file JSON</p>
+            </div>
+
+            <div class="setup-container">
+                <div class="setup-panel">
+                    <h3>Genera Dataset Casuale</h3>
+                    <div class="form-group">
+                        <label for="num-books">Numero di libri (100-500):</label>
+                        <input type="range" id="num-books" min="100" max="500" value="100" step="10">
+                        <span id="num-books-value">100</span>
+                    </div>
+                    <button id="btn-generate" class="btn btn-primary">Genera Dataset</button>
+                </div>
+
+                <div class="setup-panel">
+                    <h3>O Carica File JSON</h3>
+                    <div class="form-group">
+                        <input type="file" id="file-input" accept=".json">
+                        <button id="btn-load-file" class="btn btn-secondary">Carica File</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="dataset-preview" class="dataset-preview" style="display: none;">
+                <h3>Dataset Caricato</h3>
+                <div class="preview-stats">
+                    <div class="stat-card">
+                        <span class="stat-value" id="stat-total">0</span>
+                        <span class="stat-label">Libri Totali</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value" id="stat-years">0-0</span>
+                        <span class="stat-label">Range Anni</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value" id="stat-authors">0</span>
+                        <span class="stat-label">Autori Unici</span>
+                    </div>
+                </div>
+                <div class="preview-books" id="preview-books"></div>
+
+                <div class="form-group">
+                    <h3>Criterio di Ordinamento</h3>
+                    <div class="radio-group">
+                        <label>
+                            <input type="radio" name="criterio" value="titolo" checked>
+                            Per Titolo
+                        </label>
+                        <label>
+                            <input type="radio" name="criterio" value="autore">
+                            Per Autore
+                        </label>
+                        <label>
+                            <input type="radio" name="criterio" value="anno">
+                            Per Anno
+                        </label>
+                    </div>
+                </div>
+
+                <button id="btn-start-sort" class="btn btn-success btn-large">Avvia Ordinamento</button>
+            </div>
+        </section>
+
+        <!-- Sezione Ordinamento -->
+        <section id="section-sorting" class="section hidden">
+            <div class="section-header">
+                <h2>Ordinamento</h2>
+                <p>Confronto tra Selection Sort e Quick Sort</p>
+            </div>
+
+            <div class="sorting-container">
+                <div class="visualizer-wrapper">
+                    <div id="sort-selection" class="visualizer-box"></div>
+                </div>
+                <div class="visualizer-wrapper">
+                    <div id="sort-quick" class="visualizer-box"></div>
+                </div>
+            </div>
+
+            <div id="sorting-comparison" class="comparison-panel" style="display: none;">
+                <h3>Confronto Performance</h3>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Metrica</th>
+                            <th>Selection Sort</th>
+                            <th>Quick Sort</th>
+                            <th>Migliore</th>
+                            <th>Differenza %</th>
+                        </tr>
+                    </thead>
+                    <tbody id="comparison-tbody">
+                    </tbody>
+                </table>
+
+                <div class="algorithm-info">
+                    <div class="info-card">
+                        <h4>Selection Sort</h4>
+                        <ul>
+                            <li><strong>Complessità:</strong> O(n²) in tutti i casi</li>
+                            <li><strong>Stabilità:</strong> ❌ No</li>
+                            <li><strong>In-place:</strong> ✅ Sì</li>
+                            <li><strong>Scambi:</strong> Minimali O(n)</li>
+                        </ul>
+                    </div>
+                    <div class="info-card">
+                        <h4>Quick Sort</h4>
+                        <ul>
+                            <li><strong>Complessità:</strong> O(n log n) medio, O(n²) peggiore</li>
+                            <li><strong>Stabilità:</strong> ❌ No</li>
+                            <li><strong>In-place:</strong> ✅ Sì</li>
+                            <li><strong>Divide et impera:</strong> ✅ Sì</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <button id="btn-start-search" class="btn btn-success btn-large">Procedi alla Ricerca</button>
+            </div>
+        </section>
+
+        <!-- Sezione Ricerca -->
+        <section id="section-searching" class="section hidden">
+            <div class="section-header">
+                <h2>Ricerca</h2>
+                <p>Confronto tra Ricerca Lineare e Ricerca Binaria</p>
+            </div>
+
+            <div class="search-setup">
+                <h3>Quale libro vuoi cercare?</h3>
+                <div class="form-group">
+                    <input type="text" id="search-input" placeholder="Inserisci il titolo del libro...">
+                    <datalist id="book-suggestions"></datalist>
+                    <button id="btn-execute-search" class="btn btn-primary">Cerca Libro</button>
+                </div>
+            </div>
+
+            <div class="searching-container" style="display: none;">
+                <div class="visualizer-wrapper">
+                    <div id="search-linear" class="visualizer-box"></div>
+                </div>
+                <div class="visualizer-wrapper">
+                    <div id="search-binary" class="visualizer-box"></div>
+                </div>
+            </div>
+
+            <div id="search-comparison" class="comparison-panel" style="display: none;">
+                <h3>Confronto Performance</h3>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Metrica</th>
+                            <th>Ricerca Lineare</th>
+                            <th>Ricerca Binaria</th>
+                            <th>Migliore</th>
+                            <th>Differenza %</th>
+                        </tr>
+                    </thead>
+                    <tbody id="search-comparison-tbody">
+                    </tbody>
+                </table>
+
+                <div class="algorithm-info">
+                    <div class="info-card">
+                        <h4>Ricerca Lineare</h4>
+                        <ul>
+                            <li><strong>Complessità:</strong> O(n)</li>
+                            <li><strong>Vincoli:</strong> ➖ Nessuno</li>
+                            <li><strong>Array ordinato:</strong> ❌ Non richiesto</li>
+                            <li><strong>Caso migliore:</strong> O(1)</li>
+                        </ul>
+                    </div>
+                    <div class="info-card">
+                        <h4>Ricerca Binaria</h4>
+                        <ul>
+                            <li><strong>Complessità:</strong> O(log n)</li>
+                            <li><strong>Vincoli:</strong> ⚠️ Array ordinato richiesto</li>
+                            <li><strong>Efficienza:</strong> ✅ Eccellente</li>
+                            <li><strong>Caso migliore:</strong> O(1)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sezione Risultato -->
+        <section id="section-result" class="section hidden">
+            <div class="section-header">
+                <h2>Risultato</h2>
+                <p>Libro trovato</p>
+            </div>
+
+            <div id="result-container" class="result-container">
+                <div class="book-card">
+                    <h3><span id="result-title"></span></h3>
+                    <p><strong>Autore:</strong> <span id="result-author"></span></p>
+                    <p><strong>Anno:</strong> <span id="result-year"></span></p>
+                </div>
+
+                <div class="search-details">
+                    <h4>Dettagli Ricerca</h4>
+                    <p><strong>Metodo:</strong> Entrambi gli algoritmi hanno trovato il libro con successo!</p>
+                    <p id="result-details"></p>
+                </div>
+
+                <div class="action-buttons">
+                    <button id="btn-new-search" class="btn btn-primary">Nuova Ricerca</button>
+                    <button id="btn-restart" class="btn btn-secondary">Ricomincia da Capo</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <p>Progetto didattico sugli algoritmi di ordinamento e ricerca - 2025</p>
+        </footer>
+    </div>
+
+    <!-- JavaScript Modules -->
+    <script src="js/models/libro.js"></script>
+    <script src="js/utils/comparator.js"></script>
+    <script src="js/utils/metrics.js"></script>
+    <script src="js/generator/dataset_generator.js"></script>
+    <script src="js/algorithms/sorting/selection_sort.js"></script>
+    <script src="js/algorithms/sorting/quick_sort.js"></script>
+    <script src="js/algorithms/searching/linear_search.js"></script>
+    <script src="js/algorithms/searching/binary_search.js"></script>
+    <script src="js/animation/sort_visualizer.js"></script>
+    <script src="js/animation/search_visualizer.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

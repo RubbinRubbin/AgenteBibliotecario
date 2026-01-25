@@ -1,0 +1,33 @@
+# Dataset generati
+data/*.json
+output/*.json
+
+# File di sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor e IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.settings/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Temporanei
+*.tmp
+*.temp
+.cache/
+
+# Node modules (se mai dovessero essere aggiunti)
+node_modules/
+
+# Build (se mai dovessero essere aggiunti)
+dist/
+build/
