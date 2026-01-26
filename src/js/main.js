@@ -53,15 +53,6 @@ class BibliotecarioApp {
             this.generateDataset();
         });
 
-        // Carica file
-        document.getElementById('btn-load-file').addEventListener('click', () => {
-            document.getElementById('file-input').click();
-        });
-
-        document.getElementById('file-input').addEventListener('change', (e) => {
-            this.loadFile(e.target.files[0]);
-        });
-
         // Criterio di ordinamento
         document.querySelectorAll('input[name="criterio"]').forEach(radio => {
             radio.addEventListener('change', (e) => {
@@ -113,26 +104,6 @@ class BibliotecarioApp {
         );
 
         this.showDatasetPreview();
-    }
-
-    /**
-     * Carica file JSON
-     */
-    async loadFile(file) {
-        if (!file) return;
-
-        try {
-            const text = await file.text();
-            const data = JSON.parse(text);
-
-            this.libriOriginali = data.map(item =>
-                new Libro(item.titolo, item.autore, item.anno)
-            );
-
-            this.showDatasetPreview();
-        } catch (error) {
-            alert('Errore nel caricamento del file: ' + error.message);
-        }
     }
 
     /**
