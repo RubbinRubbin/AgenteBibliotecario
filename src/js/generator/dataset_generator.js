@@ -1,14 +1,13 @@
 /**
  * Generatore di Dataset Libri Casuali
- * Genera tra 100 e 500 libri combinando casualmente titoli, autori e anni
+ * Genera sempre 500 libri combinando casualmente titoli, autori e anni
  */
 
 class DatasetGenerator {
     constructor() {
         this.titoli = [];
         this.autori = [];
-        this.minLibri = 100;
-        this.maxLibri = 500;
+        this.numeroLibri = 500;
         this.minAnno = 1900;
         this.maxAnno = 2024;
     }
@@ -67,16 +66,12 @@ class DatasetGenerator {
     }
 
     /**
-     * Genera un dataset di N libri casuali (senza duplicati esatti)
-     * @param {number} numeroLibri - Numero di libri da generare (100-500)
+     * Genera un dataset di 500 libri casuali (senza duplicati esatti)
      * @returns {Array} Array di libri generati
      */
-    genera(numeroLibri) {
-        // Validazione input
-        if (numeroLibri < this.minLibri || numeroLibri > this.maxLibri) {
-            console.warn(`Numero libri fuori range. Utilizzo valore di default: ${this.minLibri}`);
-            numeroLibri = this.minLibri;
-        }
+    genera() {
+        // Genera sempre 500 libri
+        const numeroLibri = this.numeroLibri;
 
         const libri = [];
         const libriSet = new Set(); // Per tracciare duplicati
@@ -102,12 +97,11 @@ class DatasetGenerator {
     }
 
     /**
-     * Genera e salva il dataset in formato JSON
-     * @param {number} numeroLibri - Numero di libri da generare
+     * Genera e salva il dataset in formato JSON (sempre 500 libri)
      * @returns {Object} Oggetto con i libri e le statistiche
      */
-    generaESalva(numeroLibri) {
-        const libri = this.genera(numeroLibri);
+    generaESalva() {
+        const libri = this.genera();
 
         // Prepara i dati per il download
         const dataStr = JSON.stringify(libri, null, 2);

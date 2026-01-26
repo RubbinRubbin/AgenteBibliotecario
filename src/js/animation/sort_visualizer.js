@@ -1,107 +1,228 @@
 /**
- * Visualizzatore Animazioni Ordinamento
- * Gestisce la visualizzazione animata degli algoritmi di ordinamento
+ * Visualizzatore Didattico Ordinamento
+ * Visualizzazione puramente didattica e ipotetica per confrontare Selection Sort e Quick Sort
+ * Non riflette i dati reali del dataset
  */
 
 class SortVisualizer {
     constructor(containerId, nomeAlgoritmo) {
         this.container = document.getElementById(containerId);
         this.nomeAlgoritmo = nomeAlgoritmo;
-        this.steps = [];
-        this.currentStep = 0;
+        this.isSelectionSort = nomeAlgoritmo.toLowerCase().includes('selection');
+        this.currentFrame = 0;
         this.isPlaying = false;
-        this.speed = 500; // millisecondi per step
-        this.criterio = 'titolo';
-        this.maxValue = 0;
-        this.bars = [];
+        this.speed = 1000;
         this.animationTimer = null;
+
+        // Dataset ipotetico per visualizzazione didattica (10 elementi)
+        this.demoData = [64, 34, 25, 12, 22, 11, 90, 88, 45, 50];
+        this.frames = [];
     }
 
     /**
-     * Inizializza il visualizzatore con gli steps dell'algoritmo
+     * Inizializza il visualizzatore (ignora gli steps reali, usa dati didattici)
      */
     init(steps, criterio) {
-        this.steps = steps;
-        this.criterio = criterio;
-        this.currentStep = 0;
-        this.isPlaying = false;
-
-        // Crea steps semplificati per la visualizzazione didattica
-        this.createSimplifiedSteps();
-
-        // Calcola il valore massimo per normalizzare le altezze
-        this.calculateMaxValue();
-
-        // Crea la struttura HTML
+        // Ignora gli steps reali, genera frames didattici
+        this.generateDemoFrames();
         this.createVisualization();
-
-        // Mostra lo stato iniziale
-        this.renderStep(0);
+        this.renderFrame(0);
     }
 
     /**
-     * Crea steps semplificati con meno elementi per la visualizzazione didattica
+     * Genera frames didattici per l'algoritmo
      */
-    createSimplifiedSteps() {
-        const maxVisualizationItems = 25; // Numero massimo di elementi da visualizzare
-
-        if (this.steps.length === 0 || this.steps[0].stato.length <= maxVisualizationItems) {
-            // Se il dataset è già piccolo, usa gli steps originali
-            return;
+    generateDemoFrames() {
+        if (this.isSelectionSort) {
+            this.generateSelectionSortFrames();
+        } else {
+            this.generateQuickSortFrames();
         }
+    }
 
-        // Crea versioni semplificate degli steps per la visualizzazione
-        // Mantiene gli steps originali ma con un subset dei dati
-        const fullDataSize = this.steps[0].stato.length;
-        const step = Math.floor(fullDataSize / maxVisualizationItems);
+    /**
+     * Genera frames didattici per Selection Sort
+     */
+    generateSelectionSortFrames() {
+        const arr = [...this.demoData];
+        this.frames = [];
 
-        this.visualSteps = this.steps.map(s => {
-            // Prendi solo ogni N-esimo elemento per la visualizzazione
-            const simplifiedState = [];
-            const simplifiedIndices = [];
+        // Frame iniziale
+        this.frames.push({
+            array: [...arr],
+            comparing: [],
+            swapping: [],
+            sorted: [],
+            message: 'Array iniziale non ordinato'
+        });
 
-            for (let i = 0; i < fullDataSize; i += step) {
-                if (simplifiedState.length < maxVisualizationItems) {
-                    simplifiedState.push(s.stato[i]);
+        // Simulazione Selection Sort
+        for (let i = 0; i < arr.length - 1; i++) {
+            let minIdx = i;
+
+            // Cerca il minimo
+            for (let j = i + 1; j < arr.length; j++) {
+                this.frames.push({
+                    array: [...arr],
+                    comparing: [i, j],
+                    swapping: [],
+                    sorted: Array.from({length: i}, (_, k) => k),
+                    message: `Confronto elemento ${j} con il minimo corrente (posizione ${minIdx})`
+                });
+
+                if (arr[j] < arr[minIdx]) {
+                    minIdx = j;
+                    this.frames.push({
+                        array: [...arr],
+                        comparing: [],
+                        swapping: [],
+                        sorted: Array.from({length: i}, (_, k) => k),
+                        pivot: [minIdx],
+                        message: `Nuovo minimo trovato: ${arr[minIdx]} alla posizione ${minIdx}`
+                    });
                 }
             }
 
-            // Ricalcola gli indici proporzionalmente
-            s.indici.forEach(idx => {
-                const proportionalIdx = Math.floor(idx / step);
-                if (proportionalIdx < simplifiedState.length && !simplifiedIndices.includes(proportionalIdx)) {
-                    simplifiedIndices.push(proportionalIdx);
-                }
-            });
+            // Scambia
+            if (minIdx !== i) {
+                this.frames.push({
+                    array: [...arr],
+                    comparing: [],
+                    swapping: [i, minIdx],
+                    sorted: Array.from({length: i}, (_, k) => k),
+                    message: `Scambio ${arr[i]} con ${arr[minIdx]}`
+                });
 
-            return {
-                tipo: s.tipo,
-                indici: simplifiedIndices,
-                stato: simplifiedState
-            };
+                [arr[i], arr[minIdx]] = [arr[minIdx], arr[i]];
+            }
+
+            this.frames.push({
+                array: [...arr],
+                comparing: [],
+                swapping: [],
+                sorted: Array.from({length: i + 1}, (_, k) => k),
+                message: `Elemento ${arr[i]} ora in posizione corretta`
+            });
+        }
+
+        // Frame finale
+        this.frames.push({
+            array: [...arr],
+            comparing: [],
+            swapping: [],
+            sorted: Array.from({length: arr.length}, (_, k) => k),
+            message: '✅ Array completamente ordinato!'
         });
     }
 
     /**
-     * Calcola il valore massimo per normalizzare le altezze delle barre
+     * Genera frames didattici per Quick Sort
      */
-    calculateMaxValue() {
-        if (this.steps.length === 0) return;
+    generateQuickSortFrames() {
+        const arr = [...this.demoData];
+        this.frames = [];
 
-        // Usa visualSteps se disponibile, altrimenti steps normali
-        const stepsToUse = this.visualSteps || this.steps;
-        const firstState = stepsToUse[0].stato;
-        this.maxValue = 0;
+        // Frame iniziale
+        this.frames.push({
+            array: [...arr],
+            comparing: [],
+            swapping: [],
+            sorted: [],
+            pivot: [],
+            message: 'Array iniziale non ordinato'
+        });
 
-        if (this.criterio === 'anno') {
-            // Per anno, usa direttamente il valore
-            this.maxValue = Math.max(...firstState.map(libro => libro.anno));
-        } else {
-            // Per titolo/autore, usa il valore numerico del comparatore
-            firstState.forEach(libro => {
-                const valore = Comparator.getValoreCriterio(libro, this.criterio);
-                const numerico = Comparator.valoreNumerico(valore);
-                if (numerico > this.maxValue) this.maxValue = numerico;
+        this.quickSortFrames(arr, 0, arr.length - 1);
+
+        // Frame finale
+        this.frames.push({
+            array: [...arr],
+            comparing: [],
+            swapping: [],
+            sorted: Array.from({length: arr.length}, (_, k) => k),
+            message: '✅ Array completamente ordinato!'
+        });
+    }
+
+    /**
+     * Ricorsione Quick Sort per generare frames
+     */
+    quickSortFrames(arr, low, high) {
+        if (low < high) {
+            // Scegli pivot (ultimo elemento)
+            const pivotIdx = high;
+            this.frames.push({
+                array: [...arr],
+                comparing: [],
+                swapping: [],
+                sorted: [],
+                pivot: [pivotIdx],
+                message: `Scelgo pivot: ${arr[pivotIdx]} (posizione ${pivotIdx})`
+            });
+
+            // Partizione
+            let i = low - 1;
+            for (let j = low; j < high; j++) {
+                this.frames.push({
+                    array: [...arr],
+                    comparing: [j, pivotIdx],
+                    swapping: [],
+                    sorted: [],
+                    pivot: [pivotIdx],
+                    message: `Confronto ${arr[j]} con pivot ${arr[pivotIdx]}`
+                });
+
+                if (arr[j] < arr[pivotIdx]) {
+                    i++;
+                    if (i !== j) {
+                        this.frames.push({
+                            array: [...arr],
+                            comparing: [],
+                            swapping: [i, j],
+                            sorted: [],
+                            pivot: [pivotIdx],
+                            message: `Scambio ${arr[i]} con ${arr[j]}`
+                        });
+                        [arr[i], arr[j]] = [arr[j], arr[i]];
+                    }
+                }
+            }
+
+            // Posiziona pivot
+            i++;
+            if (i !== pivotIdx) {
+                this.frames.push({
+                    array: [...arr],
+                    comparing: [],
+                    swapping: [i, pivotIdx],
+                    sorted: [],
+                    pivot: [pivotIdx],
+                    message: `Posiziono pivot ${arr[pivotIdx]} nella posizione corretta ${i}`
+                });
+                [arr[i], arr[pivotIdx]] = [arr[pivotIdx], arr[i]];
+            }
+
+            this.frames.push({
+                array: [...arr],
+                comparing: [],
+                swapping: [],
+                sorted: [i],
+                pivot: [],
+                message: `Pivot ${arr[i]} ora in posizione definitiva`
+            });
+
+            // Ricorsione
+            this.quickSortFrames(arr, low, i - 1);
+            this.quickSortFrames(arr, i + 1, high);
+        } else if (low === high) {
+            // Singolo elemento già ordinato
+            this.frames.push({
+                array: [...arr],
+                comparing: [],
+                swapping: [],
+                sorted: [low],
+                pivot: [],
+                message: `Elemento singolo ${arr[low]} già ordinato`
             });
         }
     }
@@ -110,38 +231,36 @@ class SortVisualizer {
      * Crea la struttura HTML del visualizzatore
      */
     createVisualization() {
-        const isSimplified = this.visualSteps !== undefined;
-        const visualizationNote = isSimplified ?
-            `<span class="stat" style="color: var(--text-muted); font-size: 0.75rem;">Visualizzazione semplificata per didattica (${this.visualSteps[0].stato.length} elementi mostrati)</span>` : '';
-
         this.container.innerHTML = `
             <div class="visualizer-header">
                 <h3>${this.nomeAlgoritmo}</h3>
                 <div class="visualizer-stats">
-                    <span class="stat">Step: <strong id="${this.container.id}-step">0</strong>/<strong>${this.steps.length - 1}</strong></span>
-                    ${visualizationNote}
+                    <span class="stat" style="color: var(--text-muted); font-size: 0.85rem;">
+                        📚 Visualizzazione didattica (dati ipotetici, non reali)
+                    </span>
+                    <span class="stat">Frame: <strong id="${this.container.id}-frame">0</strong>/<strong>${this.frames.length - 1}</strong></span>
                 </div>
             </div>
-            <div class="visualizer-canvas" id="${this.container.id}-canvas"></div>
+            <div class="demo-message" id="${this.container.id}-message"></div>
+            <div class="visualizer-canvas demo-canvas" id="${this.container.id}-canvas"></div>
             <div class="visualizer-controls">
-                <button id="${this.container.id}-play" class="btn btn-play">Play</button>
-                <button id="${this.container.id}-pause" class="btn btn-pause" disabled>Pause</button>
-                <button id="${this.container.id}-prev" class="btn btn-step">Prev</button>
-                <button id="${this.container.id}-next" class="btn btn-step">Next</button>
-                <button id="${this.container.id}-reset" class="btn btn-reset">Reset</button>
+                <button id="${this.container.id}-play" class="btn btn-play">▶ Play</button>
+                <button id="${this.container.id}-pause" class="btn btn-pause" disabled>⏸ Pause</button>
+                <button id="${this.container.id}-prev" class="btn btn-step">⏮ Prev</button>
+                <button id="${this.container.id}-next" class="btn btn-step">⏭ Next</button>
+                <button id="${this.container.id}-reset" class="btn btn-reset">🔄 Reset</button>
                 <label>
                     Velocità:
                     <select id="${this.container.id}-speed" class="speed-select">
-                        <option value="1000">Lenta</option>
-                        <option value="500" selected>Normale</option>
-                        <option value="200">Veloce</option>
-                        <option value="50">Molto Veloce</option>
+                        <option value="2000">Lenta</option>
+                        <option value="1000" selected>Normale</option>
+                        <option value="500">Veloce</option>
+                        <option value="200">Molto Veloce</option>
                     </select>
                 </label>
             </div>
         `;
 
-        // Aggiungi event listeners
         this.attachEventListeners();
     }
 
@@ -151,8 +270,8 @@ class SortVisualizer {
     attachEventListeners() {
         document.getElementById(`${this.container.id}-play`).addEventListener('click', () => this.play());
         document.getElementById(`${this.container.id}-pause`).addEventListener('click', () => this.pause());
-        document.getElementById(`${this.container.id}-prev`).addEventListener('click', () => this.previousStep());
-        document.getElementById(`${this.container.id}-next`).addEventListener('click', () => this.nextStep());
+        document.getElementById(`${this.container.id}-prev`).addEventListener('click', () => this.previousFrame());
+        document.getElementById(`${this.container.id}-next`).addEventListener('click', () => this.nextFrame());
         document.getElementById(`${this.container.id}-reset`).addEventListener('click', () => this.reset());
         document.getElementById(`${this.container.id}-speed`).addEventListener('change', (e) => {
             this.speed = parseInt(e.target.value);
@@ -160,49 +279,44 @@ class SortVisualizer {
     }
 
     /**
-     * Renderizza uno step specifico
+     * Renderizza un frame specifico
      */
-    renderStep(stepIndex) {
-        if (stepIndex < 0 || stepIndex >= this.steps.length) return;
+    renderFrame(frameIndex) {
+        if (frameIndex < 0 || frameIndex >= this.frames.length) return;
 
-        this.currentStep = stepIndex;
-        // Usa visualSteps se disponibile per la visualizzazione, altrimenti steps normali
-        const stepsToUse = this.visualSteps || this.steps;
-        const step = stepsToUse[stepIndex];
+        this.currentFrame = frameIndex;
+        const frame = this.frames[frameIndex];
         const canvas = document.getElementById(`${this.container.id}-canvas`);
+        const messageEl = document.getElementById(`${this.container.id}-message`);
 
-        // Aggiorna contatore step (usa sempre steps originali per il contatore)
-        document.getElementById(`${this.container.id}-step`).textContent = stepIndex;
+        // Aggiorna contatore
+        document.getElementById(`${this.container.id}-frame`).textContent = frameIndex;
+
+        // Aggiorna messaggio
+        messageEl.textContent = frame.message;
+
+        // Calcola altezza massima per normalizzazione
+        const maxValue = Math.max(...this.demoData);
 
         // Crea le barre
-        const barsHtml = step.stato.map((libro, index) => {
-            const valore = Comparator.getValoreCriterio(libro, this.criterio);
-            const numerico = this.criterio === 'anno' ? valore : Comparator.valoreNumerico(valore);
-            const height = (numerico / this.maxValue) * 100;
+        const barsHtml = frame.array.map((value, index) => {
+            const height = (value / maxValue) * 100;
 
-            // Determina la classe CSS in base al tipo di step e agli indici
-            let barClass = 'bar';
-            if (step.indici.includes(index)) {
-                if (step.tipo === 'confronto' || step.tipo === 'confronto-pivot') {
-                    barClass += ' bar-comparing';
-                } else if (step.tipo === 'pre-scambio' || step.tipo === 'post-scambio' ||
-                           step.tipo === 'pre-scambio-pivot' || step.tipo === 'post-scambio-pivot') {
-                    barClass += ' bar-swapping';
-                } else if (step.tipo === 'nuovo-minimo' || step.tipo === 'scelta-pivot') {
-                    barClass += ' bar-pivot';
-                } else if (step.tipo === 'ordinato' || step.tipo === 'pivot-finale') {
-                    barClass += ' bar-sorted';
-                }
-            }
-
-            // Gestisci completamento
-            if (step.tipo === 'completato') {
+            let barClass = 'demo-bar';
+            if (frame.sorted.includes(index)) {
                 barClass += ' bar-sorted';
+            } else if (frame.pivot && frame.pivot.includes(index)) {
+                barClass += ' bar-pivot';
+            } else if (frame.swapping.includes(index)) {
+                barClass += ' bar-swapping';
+            } else if (frame.comparing.includes(index)) {
+                barClass += ' bar-comparing';
             }
 
             return `
-                <div class="${barClass}" style="height: ${height}%" title="${libro.titolo}">
-                    <div class="bar-label">${valore}</div>
+                <div class="${barClass}" style="height: ${height}%">
+                    <div class="bar-value">${value}</div>
+                    <div class="bar-index">${index}</div>
                 </div>
             `;
         }).join('');
@@ -243,39 +357,38 @@ class SortVisualizer {
     animate() {
         if (!this.isPlaying) return;
 
-        if (this.currentStep < this.steps.length - 1) {
-            this.nextStep();
+        if (this.currentFrame < this.frames.length - 1) {
+            this.nextFrame();
             this.animationTimer = setTimeout(() => this.animate(), this.speed);
         } else {
-            // Animazione completata
             this.pause();
         }
     }
 
     /**
-     * Va allo step successivo
+     * Frame successivo
      */
-    nextStep() {
-        if (this.currentStep < this.steps.length - 1) {
-            this.renderStep(this.currentStep + 1);
+    nextFrame() {
+        if (this.currentFrame < this.frames.length - 1) {
+            this.renderFrame(this.currentFrame + 1);
         }
     }
 
     /**
-     * Va allo step precedente
+     * Frame precedente
      */
-    previousStep() {
-        if (this.currentStep > 0) {
-            this.renderStep(this.currentStep - 1);
+    previousFrame() {
+        if (this.currentFrame > 0) {
+            this.renderFrame(this.currentFrame - 1);
         }
     }
 
     /**
-     * Reset allo stato iniziale
+     * Reset
      */
     reset() {
         this.pause();
-        this.renderStep(0);
+        this.renderFrame(0);
     }
 
     /**

@@ -48,13 +48,6 @@ class BibliotecarioApp {
      * Setup event listeners
      */
     setupEventListeners() {
-        // Slider numero libri
-        const slider = document.getElementById('num-books');
-        const sliderValue = document.getElementById('num-books-value');
-        slider.addEventListener('input', (e) => {
-            sliderValue.textContent = e.target.value;
-        });
-
         // Genera dataset
         document.getElementById('btn-generate').addEventListener('click', () => {
             this.generateDataset();
@@ -112,12 +105,10 @@ class BibliotecarioApp {
     }
 
     /**
-     * Genera dataset casuale
+     * Genera dataset casuale (sempre 500 libri)
      */
     generateDataset() {
-        const numBooks = parseInt(document.getElementById('num-books').value);
-
-        this.libriOriginali = this.generator.genera(numBooks).map(data =>
+        this.libriOriginali = this.generator.genera().map(data =>
             new Libro(data.titolo, data.autore, data.anno)
         );
 
@@ -303,9 +294,7 @@ class BibliotecarioApp {
         console.log('Ricerca Lineare:', resultLinear);
         console.log('Ricerca Binaria:', resultBinary);
 
-        // Mostra visualizzatori
-        document.querySelector('.searching-container').style.display = 'grid';
-
+        // Inizializza visualizzatori
         this.searchVisualizerLinear = new SearchVisualizer('search-linear', 'Ricerca Lineare (Non Ordinata)');
         this.searchVisualizerBinary = new SearchVisualizer('search-binary', 'Ricerca Binaria (Ordinata)');
 
