@@ -187,7 +187,6 @@ Visualizza il libro trovato con tutti i dettagli della ricerca!
 
 ```
 AgenteBibliotecario/
-├── data/                           # Dataset generati
 ├── src/
 │   ├── js/
 │   │   ├── models/
@@ -212,11 +211,12 @@ AgenteBibliotecario/
 │   │   ├── style.css                 # Stili generali
 │   │   ├── dashboard.css             # Layout dashboard
 │   │   └── animations.css            # Animazioni CSS
+│   ├── assets/
+│   │   └── data/
+│   │       ├── titoli.json           # Pool titoli (140+)
+│   │       └── autori.json           # Pool autori (140+)
 │   └── index.html                    # Pagina principale
-├── assets/
-│   └── data/
-│       ├── titoli.json               # Pool titoli (140+)
-│       └── autori.json               # Pool autori (140+)
+├── CLAUDE.md                         # Istruzioni progetto
 └── README.md
 ```
 
