@@ -1,4 +1,4 @@
-# 📚 Agente Bibliotecario
+#  Agente Bibliotecario
 
 ![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-yellow?style=flat-square&logo=javascript)
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white)
@@ -6,11 +6,11 @@
 ![License](https://img.shields.io/badge/License-Open%20Source-green?style=flat-square)
 ![No Dependencies](https://img.shields.io/badge/Dependencies-None-blue?style=flat-square)
 
-> 🎓 **Applicazione web didattica interattiva** per visualizzare e comprendere gli algoritmi di ordinamento e ricerca attraverso animazioni step-by-step su un dataset di libri.
+>  **Applicazione web didattica interattiva** per visualizzare e comprendere gli algoritmi di ordinamento e ricerca attraverso animazioni step-by-step su un dataset di libri.
 
 ---
 
-## 📋 Indice
+##  Indice
 
 - [Descrizione](#descrizione)
 - [Demo Rapida](#-come-utilizzare)
@@ -28,18 +28,18 @@
 
 **Agente Bibliotecario** è un'applicazione web interattiva e didattica che visualizza e confronta algoritmi di ordinamento e ricerca su un dataset di libri.
 
-### 🎯 Cosa Puoi Fare
+###  Cosa Puoi Fare
 
 | Funzionalità | Descrizione |
 |-------------|-------------|
-| 📊 **Genera Dataset** | Crea 100-500 libri casuali o importa il tuo JSON |
-| 🔄 **Ordina** | Confronta Selection Sort vs Quick Sort in tempo reale |
-| 🔍 **Cerca** | Vedi la differenza tra Ricerca Lineare e Binaria |
-| 🎬 **Anima** | Visualizza ogni passo degli algoritmi con colori |
-| 📈 **Analizza** | Confronta performance (tempo, comparazioni, scambi) |
-| 💾 **Esporta** | Salva i dataset generati per riutilizzo |
+|  **Genera Dataset** | Crea 100-500 libri casuali o importa il tuo JSON |
+|  **Ordina** | Confronta Selection Sort vs Quick Sort in tempo reale |
+|  **Cerca** | Vedi la differenza tra Ricerca Lineare e Binaria |
+|  **Anima** | Visualizza ogni passo degli algoritmi con colori |
+|  **Analizza** | Confronta performance (tempo, comparazioni, scambi) |
+|  **Esporta** | Salva i dataset generati per riutilizzo |
 
-### ⚡ Quick Start
+###  Quick Start
 
 ```bash
 cd src && npx http-server -p 8000
@@ -49,7 +49,7 @@ Apri `http://localhost:8000` e inizia a esplorare!
 
 ---
 
-## 🚀 Come Utilizzare
+##  Come Utilizzare
 
 ### 1. Apertura dell'Applicazione
 
@@ -109,10 +109,10 @@ Seleziona come vuoi ordinare i libri:
 Clicca su "Avvia Ordinamento" e osserva le animazioni!
 
 **Controlli disponibili:**
-- ▶ **Play**: Avvia animazione automatica
-- ⏸ **Pause**: Metti in pausa
-- ⏮/⏭ **Prev/Next**: Vai avanti/indietro di uno step
-- 🔄 **Reset**: Torna all'inizio
+-  **Play**: Avvia animazione automatica
+-  **Pause**: Metti in pausa
+-  **Prev/Next**: Vai avanti/indietro di uno step
+-  **Reset**: Torna all'inizio
 - **Velocità**: Regola la velocità dell'animazione
 
 ### 5. Confronto Ordinamento
@@ -135,15 +135,15 @@ Visualizza il libro trovato con tutti i dettagli della ricerca!
 
 ---
 
-## ✨ Funzionalità Principali
+##  Funzionalità Principali
 
-### 🎯 Gestione Dataset
+###  Gestione Dataset
 - **Generazione Casuale**: Crea dataset di 100-500 libri con titoli, autori e anni casuali
 - **Import JSON**: Carica il tuo dataset personalizzato da file JSON
 - **Preview Interattiva**: Visualizza statistiche in tempo reale (totale libri, range anni, autori unici)
 - **Campionamento Visivo**: Anteprima dei primi 5 libri del dataset
 
-### 🔄 Algoritmi di Ordinamento
+###  Algoritmi di Ordinamento
 - **Doppio Confronto**: Esegue Selection Sort e Quick Sort simultaneamente
 - **Criteri Multipli**: Ordina per titolo, autore o anno di pubblicazione
 - **Visualizzazione Animata**: Barre verticali colorate che mostrano ogni passo dell'algoritmo
@@ -154,19 +154,19 @@ Visualizza il libro trovato con tutti i dettagli della ricerca!
   - Regolazione velocità (100ms - 2000ms per step)
   - Reset per riavviare l'animazione
 
-### 🔍 Algoritmi di Ricerca
+###  Algoritmi di Ricerca
 - **Confronto Parallelo**: Esegue Ricerca Lineare e Binaria contemporaneamente
 - **Visualizzazione a Box**: Elementi orizzontali colorati che evidenziano il processo di ricerca
 - **Suggerimenti Automatici**: Campo di ricerca con autocomplete dei titoli disponibili
 - **Animazione Sincronizzata**: Mostra passo dopo passo come ogni algoritmo trova (o non trova) il libro
-
-### 📊 Metriche e Performance
+  
+###  Metriche e Performance
 - **Raccolta Automatica**: Tempo di esecuzione, comparazioni, scambi, iterazioni
 - **Tabelle Comparative**: Confronto diretto tra algoritmi con percentuali di differenza
 - **Indicatore Migliore**: Evidenzia automaticamente l'algoritmo più efficiente per ogni metrica
 - **Analisi Visiva**: Card informative con complessità temporale e spaziale
 
-### 🎨 Visualizzazione e UX
+###  Visualizzazione e UX
 - **Codifica Colori**:
   - 🟦 Grigio: Elemento non processato
   - 🟨 Giallo: Elementi in confronto
@@ -177,13 +177,13 @@ Visualizza il libro trovato con tutti i dettagli della ricerca!
 - **Interfaccia Intuitiva**: Flusso guidato passo dopo passo
 - **Feedback Visivo**: Animazioni fluide e transizioni CSS
 
-### 💾 Esportazione Dati
+###  Esportazione Dati
 - **Download JSON**: Salva il dataset generato per riutilizzo futuro
 - **Formato Standard**: JSON compatibile con import successivi
 
 ---
 
-## 📂 Struttura del Progetto
+##  Struttura del Progetto
 
 ```
 AgenteBibliotecario/
@@ -222,7 +222,7 @@ AgenteBibliotecario/
 
 ---
 
-## 🎓 Algoritmi Implementati
+##  Algoritmi Implementati
 
 ### Ordinamento
 
@@ -254,7 +254,7 @@ AgenteBibliotecario/
 
 ---
 
-## 🎨 Animazioni
+##  Animazioni
 
 ### Ordinamento (Barre Verticali)
 
@@ -276,14 +276,14 @@ AgenteBibliotecario/
 
 ---
 
-## 📊 Metriche Raccolte
+##  Metriche Raccolte
 
 Per ogni algoritmo vengono tracciati:
-- ⏱ **Tempo di esecuzione** (millisecondi)
-- 🔄 **Numero di comparazioni**
-- ↔️ **Numero di scambi** (solo ordinamento)
-- 🔢 **Numero di iterazioni** (solo ricerca)
-- 📸 **Steps per animazione**
+-  **Tempo di esecuzione** (millisecondi)
+-  **Numero di comparazioni**
+-  **Numero di scambi** (solo ordinamento)
+-  **Numero di iterazioni** (solo ricerca)
+-  **Steps per animazione**
 
 ---
 
@@ -309,7 +309,7 @@ Per ogni algoritmo vengono tracciati:
 
 ---
 
-## 🔄 Flusso dell'Applicazione
+##  Flusso dell'Applicazione
 
 ```
 1. Setup Dataset
@@ -378,18 +378,18 @@ I visualizzatori riproducono questi steps con:
 
 ---
 
-## 🎯 Obiettivi Didattici
+##  Obiettivi Didattici
 
 Questo progetto ti permette di:
-1. ✅ Comprendere visivamente come funzionano gli algoritmi
-2. ✅ Confrontare le performance in tempo reale
-3. ✅ Vedere l'impatto del criterio di ordinamento
-4. ✅ Capire la differenza tra O(n) e O(log n)
-5. ✅ Apprezzare l'importanza dell'ordinamento per la ricerca binaria
+1.  Comprendere visivamente come funzionano gli algoritmi
+2.  Confrontare le performance in tempo reale
+3.  Vedere l'impatto del criterio di ordinamento
+4.  Capire la differenza tra O(n) e O(log n)
+5.  Apprezzare l'importanza dell'ordinamento per la ricerca binaria
 
 ---
 
-## 💡 Casi d'Uso
+## Casi d'Uso
 
 ### Selection Sort vs Quick Sort
 
@@ -419,7 +419,7 @@ Questo progetto ti permette di:
 
 ---
 
-## 🔧 Personalizzazione
+##  Personalizzazione
 
 ### Modifica i Pool di Dati
 
@@ -450,7 +450,7 @@ Nel file `src/css/style.css`, modifica le variabili CSS:
 
 ---
 
-## 📝 Note Tecniche
+##  Note Tecniche
 
 - Il generatore crea combinazioni casuali anche se storicamente non corrette (didattico!)
 - Gli algoritmi tracciano ogni singolo step per l'animazione
@@ -460,7 +460,7 @@ Nel file `src/css/style.css`, modifica le variabili CSS:
 
 ---
 
-## 🐛 Troubleshooting
+##  Troubleshooting
 
 **Problema**: Le animazioni non partono
 - **Soluzione**: Controlla la console per errori, verifica che tutti i file JS siano caricati
@@ -473,7 +473,7 @@ Nel file `src/css/style.css`, modifica le variabili CSS:
 
 ---
 
-## 📚 Riferimenti
+##  Riferimenti
 
 - [Selection Sort - Wikipedia](https://it.wikipedia.org/wiki/Selection_sort)
 - [Quick Sort - Wikipedia](https://it.wikipedia.org/wiki/Quicksort)
@@ -483,7 +483,7 @@ Nel file `src/css/style.css`, modifica le variabili CSS:
 
 ---
 
-## 🤝 Come Contribuire
+##  Come Contribuire
 
 Contributi sono benvenuti! Ecco come puoi aiutare:
 
@@ -513,120 +513,40 @@ Contributi sono benvenuti! Ecco come puoi aiutare:
 
 ---
 
-## 🗺 Roadmap
+##  Roadmap
 
 ### Versione 1.0 (Attuale)
-- ✅ Selection Sort e Quick Sort
-- ✅ Ricerca Lineare e Binaria
-- ✅ Animazioni interattive
-- ✅ Metriche e confronti
-- ✅ Import/Export JSON
+-  Selection Sort e Quick Sort
+-  Ricerca Lineare e Binaria
+-  Animazioni interattive
+-  Metriche e confronti
+-  Import/Export JSON
 
 ### Versione 2.0 (Futuro)
-- ⏳ Merge Sort e Heap Sort
-- ⏳ Visualizzazione complessità Big O
-- ⏳ Grafici performance
-- ⏳ Sound effects per gli step
-- ⏳ Modalità "Race" tra algoritmi
-- ⏳ Salvataggio stato su localStorage
+-  Merge Sort e Heap Sort
+-  Visualizzazione complessità Big O
+-  Grafici performance
+-  Sound effects per gli step
+-  Modalità "Race" tra algoritmi
+-  Salvataggio stato su localStorage
 
 ### Versione 3.0 (Idee)
-- 💡 Algoritmi su alberi (BST, AVL)
-- 💡 Algoritmi su grafi (DFS, BFS, Dijkstra)
-- 💡 Algoritmi di hashing
-- 💡 Backend opzionale per statistiche globali
-- 💡 Leaderboard e sfide
+-  Algoritmi su alberi (BST, AVL)
+-  Algoritmi su grafi (DFS, BFS, Dijkstra)
+-  Algoritmi di hashing
+-  Backend opzionale per statistiche globali
+-  Leaderboard e sfide
 
 ---
 
-## 📄 Licenza
+##  Licenza
 
 Progetto didattico open source - Usa e modifica liberamente!
 
 ---
 
-## 👨‍💻 Autore
+##  Autore
 
 Progetto sviluppato come esercizio didattico sugli algoritmi di ordinamento e ricerca - 2025
-
----
-
-## 🌐 Pubblicazione su GitHub
-
-### Sicurezza dei Dati
-✅ **Questo progetto è sicuro per la pubblicazione su GitHub**
-
-Il progetto contiene:
-- ✅ Solo codice HTML, CSS e JavaScript vanilla
-- ✅ Dati fittizi di esempio (titoli e autori di libri)
-- ✅ Nessuna API key o credenziali
-- ✅ Nessun dato sensibile o personale
-- ✅ Nessuna dipendenza esterna o pacchetti npm
-
-### Prima di Pubblicare
-1. **Aggiungi .gitignore** (opzionale):
-```
-# Output generati
-data/*.json
-output/*.json
-
-# File di sistema
-.DS_Store
-Thumbs.db
-
-# Editor
-.vscode/
-.idea/
-*.swp
-```
-
-2. **Verifica che il README sia aggiornato** ✅
-
-3. **Testa localmente** che tutto funzioni:
-```bash
-cd src
-npx http-server -p 8000
-```
-
-### Comandi Git per Pubblicare
-
-```bash
-# Inizializza repository (se non già fatto)
-git init
-
-# Aggiungi tutti i file
-git add .
-
-# Primo commit
-git commit -m "Initial commit: Agente Bibliotecario - Algoritmi Ordinamento e Ricerca"
-
-# Crea repository su GitHub.com (via web interface)
-# Poi collega il repository locale
-
-# Aggiungi remote origin (sostituisci con il tuo URL)
-git remote add origin https://github.com/TUO_USERNAME/AgenteBibliotecario.git
-
-# Push su GitHub
-git branch -M main
-git push -u origin main
-```
-
-### Suggerimenti per GitHub
-- **Topics consigliati**: `algorithms`, `sorting-algorithms`, `search-algorithms`, `data-structures`, `visualization`, `educational`, `javascript`, `vanilla-js`
-- **Descrizione breve**: "🔄 Visualizzazione interattiva di algoritmi di ordinamento e ricerca su dataset di libri"
-- **GitHub Pages**: Attiva GitHub Pages per avere una demo live gratuita!
-  - Settings → Pages → Source: `main` branch, folder: `/src`
-  - URL sarà: `https://TUO_USERNAME.github.io/AgenteBibliotecario/`
-
-### Attivare GitHub Pages
-1. Vai su Settings del repository
-2. Sezione "Pages"
-3. Source: Seleziona branch `main` e folder `/src` (o `/(root)` se sposti index.html in root)
-4. Save
-5. Aspetta qualche minuto e il tuo sito sarà live!
-
----
-
-## 🎉 Buon Apprendimento!
 
 Esplora, sperimenta e divertiti a capire come funzionano gli algoritmi!
